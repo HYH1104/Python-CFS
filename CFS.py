@@ -1,5 +1,6 @@
 import cv2  
 import os
+import sys
 import numpy as np
 
 def get_split_line(img, projection_row):
@@ -161,14 +162,14 @@ def get_segmentation_result(img):  # has been eroded
             if w>0 and h>0:
                 copy = img[y:y+h,x:x+w] #截取坐标为[y0:y1, x0:x1]
                 cv2.imshow("img",copy)
-                cv2.waitKey(0)
+                cv2.waitKey(1000)
     return segmentation_result
-
-pic_path = 'C:/Users//HYH/Documents/Program/Python/TYLTY/000.jpg'
+path=os.path.abspath(os.path.dirname(os.path.abspath(sys.argv[0]))+os.path.sep+".")
+pic_path = os.path.join(path,'000.jpg')#字符图片路径
 img_input = cv2.imread(pic_path, 1)  # (2975, 1787, 3)   但是图片查看器显示的是  1787 * 2975
 img = image_preprocess(img_input)  # erode
 segmentation_result = get_segmentation_result(img)  # store segmentation result : [(x,y,w,h),(),...]
 
 # cv2.imwrite("./save.jpg", img_input)
 cv2.imshow("img_input",img_input)
-cv2.waitKey(0)
+cv2.waitKey(1000)
